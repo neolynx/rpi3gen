@@ -85,8 +85,14 @@ cp linux/arch/arm64/boot/dts/broadcom/bcm2837-rpi-3-b.dtb target/boot/firmware/b
 make ARCH=arm64 kernel_revision
 cp linux/.config target/boot/config
 
-echo " * copying raspberry firmware and config"
-cp raspberry-firmware/boot/* target/boot/firmware/
+echo " * downloading raspberry firmware"
+wget -q https://github.com/raspberrypi/firmware/raw/master/boot/bootcode.bin -P target/boot/firmware/
+#wget -q https://github.com/raspberrypi/firmware/raw/master/boot/fixup_cd.dat -P target/boot/firmware/
+wget -q https://github.com/raspberrypi/firmware/raw/master/boot/fixup.dat    -P target/boot/firmware/
+#wget -q https://github.com/raspberrypi/firmware/raw/master/boot/fixup_x.dat  -P target/boot/firmware/
+#wget -q https://github.com/raspberrypi/firmware/raw/master/boot/start_cd.elf -P target/boot/firmware/
+wget -q https://github.com/raspberrypi/firmware/raw/master/boot/start.elf    -P target/boot/firmware/
+#wget -q https://github.com/raspberrypi/firmware/raw/master/boot/start_x.elf  -P target/boot/firmware/
 cp config.txt target/boot/firmware/
 
 echo " * copying u-boot and config"
