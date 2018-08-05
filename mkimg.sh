@@ -66,6 +66,7 @@ mount ${disk}p1 target/boot/firmware
 mkdir target/boot/firmware/broadcom/
 
 echo " * copying rootfs"
+chroot rootfs apt-get clean
 rsync -a rootfs/ target/
 echo " * reducing image size"
 rm -f target/var/lib/apt/lists/* 2>/dev/null || true
