@@ -1,6 +1,5 @@
 #!/bin/sh
 set -e
-
 if [ `id -u` -ne 0 ]; then
     echo Please run as root
     exit 1
@@ -36,13 +35,12 @@ trap finish EXIT
 
 echo "Creating image for raspberry pi 3"
 echo " * installing dependencies"
-apt-get install -q -y u-boot-tools >/dev/null
+apt-get install -q -y u-boot-tools pxz crossbuild-essential-arm64 debootstrap qemu-user-static >/dev/null
 
 if [ ! -f linux/arch/arm64/boot/Image.gz -o ! -f u-boot/u-boot.bin ]; then
     echo "Building mainline kernel and u-boot"
     unpriv_cmd ./build.sh
 fi
-
 if [ ! -d rootfs ]; then
     echo "Creating rootfs (Debian/stretch)"
     ./mkroot.sh
