@@ -2,3 +2,4 @@ linux/
 u-boot/
 rootfs/
 /*.img
+/*.img.xz

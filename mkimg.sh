@@ -95,6 +95,7 @@ echo " * copying u-boot and config"
 cp u-boot/u-boot.bin target/boot/firmware/
 mkenvimage -s 16384 u-boot.env.txt -o target/boot/firmware/uboot.env
 
-echo " * cleanup"
+echo " * compressing image and cleanup"
+pxz raspi.img
 cleanup
-echo Image is ready: raspi.img
+echo Image is ready: raspi.img.xz
