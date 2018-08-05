@@ -35,7 +35,7 @@ trap finish EXIT
 
 echo "Creating image for raspberry pi 3"
 echo " * installing dependencies"
-apt-get install -q -y u-boot-tools pxz crossbuild-essential-arm64 debootstrap qemu-user-static >/dev/null
+apt-get install u-boot-tools pxz crossbuild-essential-arm64 debootstrap qemu-user-static bison flex
 
 if [ ! -f linux/arch/arm64/boot/Image.gz -o ! -f u-boot/u-boot.bin ]; then
     echo "Building mainline kernel and u-boot"
@@ -47,7 +47,7 @@ if [ ! -d rootfs ]; then
 fi
 
 echo " * creating image"
-unpriv_cmd rm -f raspi.img
+unpriv_cmd rm -f raspi.img raspi.img.xz
 unpriv_cmd fallocate -l 1200M raspi.img
 unpriv_cmd sfdisk -q raspi.img << EOF
 unit: sectors
@@ -95,6 +95,6 @@ cp u-boot/u-boot.bin target/boot/firmware/
 mkenvimage -s 16384 u-boot.env.txt -o target/boot/firmware/uboot.env
 
 echo " * compressing image and cleanup"
-pxz raspi.img
 cleanup
+unpriv_cmd pxz raspi.img
 echo Image is ready: raspi.img.xz

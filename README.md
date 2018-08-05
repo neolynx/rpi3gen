@@ -24,7 +24,6 @@ scripts/kconfig/conf  --syncconfig Kconfig
   COPY    u-boot.bin
   CFGCHK  u-boot.cfg
  * cloning kernel
-
  * building kernel
 scripts/kconfig/conf  --syncconfig Kconfig
   WRAP    arch/arm64/include/generated/uapi/asm/errno.h
@@ -47,7 +46,11 @@ Reading package lists... Done
  * installing kernel, modules and dtb
  * downloading raspberry firmware
  * copying u-boot and config
- * cleanup
-Image is ready: raspi.img
+ * compressing image and cleanup
+Image is ready: raspi.img.xz
 ```
+
+## Requirements
+
+* Ubuntu >= 17.10 (cross gcc arm64 7.2)
 
