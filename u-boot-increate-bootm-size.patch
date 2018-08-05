@@ -1,0 +1,23 @@
+From 23bc15ae580565f9fbf59002280ec1e21d9c78f7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andr=C3=A9=20Roth?= <neolynx@gmail.com>
+Date: Sat, 4 Aug 2018 22:14:54 +0200
+Subject: [PATCH] increate bootm size
+
+---
+ include/configs/rpi.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/include/configs/rpi.h b/include/configs/rpi.h
+index a97550b732..de2d850032 100644
+--- a/include/configs/rpi.h
++++ b/include/configs/rpi.h
+@@ -161,5 +161,6 @@
+ 	ENV_MEM_LAYOUT_SETTINGS \
+ 	BOOTENV
+ 
++#define CONFIG_SYS_BOOTM_LEN    (64 << 20)      /* 64M */
+ 
+ #endif
+-- 
+2.17.1
+
