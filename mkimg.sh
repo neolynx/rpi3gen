@@ -34,17 +34,17 @@ finish()
 }
 trap finish EXIT
 
-echo "Creating SD Card image for raspberry pi 3 (Debian/stretch, mainline kernel and u-boot)"
+echo "Creating image for raspberry pi 3"
 echo " * installing dependencies"
 apt-get install -q -y u-boot-tools >/dev/null
 
 if [ ! -f linux/arch/arm64/boot/Image.gz -o ! -f u-boot/u-boot.bin ]; then
-    echo "Building kernel and u-boot"
+    echo "Building mainline kernel and u-boot"
     unpriv_cmd ./build.sh
 fi
 
 if [ ! -d rootfs ]; then
-    echo "Creating rootfs"
+    echo "Creating rootfs (Debian/stretch)"
     ./mkroot.sh
 fi
 
@@ -87,12 +87,8 @@ cp linux/.config target/boot/config-$kernelversion
 
 echo " * downloading raspberry firmware"
 wget -q https://github.com/raspberrypi/firmware/raw/master/boot/bootcode.bin -P target/boot/firmware/
-#wget -q https://github.com/raspberrypi/firmware/raw/master/boot/fixup_cd.dat -P target/boot/firmware/
 wget -q https://github.com/raspberrypi/firmware/raw/master/boot/fixup.dat    -P target/boot/firmware/
-#wget -q https://github.com/raspberrypi/firmware/raw/master/boot/fixup_x.dat  -P target/boot/firmware/
-#wget -q https://github.com/raspberrypi/firmware/raw/master/boot/start_cd.elf -P target/boot/firmware/
 wget -q https://github.com/raspberrypi/firmware/raw/master/boot/start.elf    -P target/boot/firmware/
-#wget -q https://github.com/raspberrypi/firmware/raw/master/boot/start_x.elf  -P target/boot/firmware/
 cp config.txt target/boot/firmware/
 
 echo " * copying u-boot and config"
