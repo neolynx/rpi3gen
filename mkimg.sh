@@ -80,10 +80,10 @@ echo " * installing kernel, modules and dtb"
 mkimage -A arm64 -O linux -T kernel -C gzip -a 0x80000 -e 0x80000 -d linux/arch/arm64/boot/Image.gz target/boot/firmware/uImage >/dev/null
 cd linux
 make -j`nproc` ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH=../target/ modules_install >/dev/null
+kernelversion=`make -s ARCH=arm64 kernelversion`
 cd ..
 cp linux/arch/arm64/boot/dts/broadcom/bcm2837-rpi-3-b.dtb target/boot/firmware/broadcom/
-make ARCH=arm64 kernel_revision
-cp linux/.config target/boot/config
+cp linux/.config target/boot/config-$kernelversion
 
 echo " * downloading raspberry firmware"
 wget -q https://github.com/raspberrypi/firmware/raw/master/boot/bootcode.bin -P target/boot/firmware/
