@@ -95,6 +95,6 @@ cp u-boot/u-boot.bin target/boot/firmware/
 mkenvimage -s 16384 u-boot.env.txt -o target/boot/firmware/uboot.env
 
 echo " * compressing image and cleanup"
-cleanup
+cleanup # this will unmount, run before compress
 unpriv_cmd pxz raspi.img
 echo Image is ready: raspi.img.xz
