@@ -4,7 +4,7 @@ set -e
 
 if [ ! -d u-boot ]; then
     echo " * cloning u-boot"
-    git clone -q --depth 1 git://git.denx.de/u-boot.git
+    git clone --depth 1 git://git.denx.de/u-boot.git
     cd u-boot
     git am ../u-boot-increate-bootm-size.patch >/dev/null
     cd ..
@@ -18,7 +18,7 @@ cd ..
 
 if [ ! -d linux ]; then
     echo " * cloning kernel"
-    git clone -q --depth 1 https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+    git clone --depth 1 https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
 fi
 
 echo " * building kernel"
