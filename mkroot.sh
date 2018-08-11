@@ -37,8 +37,10 @@ gpg --keyring=raspikeys.gpg --armor --export $KEY | chroot rootfs apt-key add -
 
 chroot rootfs apt-get -o Acquire::Languages=none update || true # this fails the first time
 chroot rootfs apt-get -o Acquire::Languages=none update
-DEBIAN_FRONTEND=non-interactive chroot rootfs apt-get install --no-install-recommends --yes vim ssh bash-completion net-tools isc-dhcp-client sudo kmod udev firmware-brcm80211 \
+DEBIAN_FRONTEND=non-interactive chroot rootfs apt-get install --no-install-recommends --yes systemd vim ssh bash-completion net-tools isc-dhcp-client sudo kmod udev firmware-brcm80211 \
     xorg xfonts-base slim i3 i3status suckless-tools
+
+echo "127.0.0.1       localhost" > rootfs/etc/hosts
 
 log "creating user"
 chroot rootfs useradd -U -m -G sudo pi
