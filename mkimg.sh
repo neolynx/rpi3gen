@@ -35,16 +35,16 @@ finish()
 }
 trap finish EXIT
 
-echo "Creating image for raspberry pi 3"
+log_info "Creating image for raspberry pi 3"
 log "installing dependencies"
 apt-get install u-boot-tools pxz crossbuild-essential-arm64 debootstrap qemu-user-static bison flex debian-archive-keyring
 
 if [ ! -f linux/arch/arm64/boot/Image.gz -o ! -f u-boot/u-boot.bin ]; then
-    echo "Building mainline kernel and u-boot"
+    log_info "Building mainline kernel and u-boot"
     unpriv_cmd ./build.sh
 fi
 if [ ! -d rootfs ]; then
-    echo "Creating rootfs (Debian/stretch)"
+    log_info "Creating rootfs (Debian/stretch)"
     ./mkroot.sh
 fi
 
@@ -99,4 +99,4 @@ mkenvimage -s 16384 u-boot.env.txt -o target/boot/firmware/uboot.env
 log "compressing image and cleanup"
 cleanup # this will unmount, run before compress
 unpriv_cmd pxz raspi.img
-echo Image is ready: raspi.img.xz
+log_info Image is ready: raspi.img.xz
